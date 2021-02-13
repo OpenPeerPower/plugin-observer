@@ -2,11 +2,11 @@ name: Build plugin
 
 on:
   pull_request:
-    branches: ["master"]
+    branches: ["main"]
   release:
     types: ["published"]
   push:
-    branches: ["master"]
+    branches: ["main"]
     paths:
     - Dockerfile
     - build.json
@@ -35,11 +35,11 @@ jobs:
 
     - name: Get information
       id: info
-      uses: openpeerpower/actions/helpers/info@master
+      uses: openpeerpower/actions/helpers/info@main
 
     - name: Get version
       id: version
-      uses: openpeerpower/actions/helpers/version@master
+      uses: openpeerpower/actions/helpers/version@main
       with:
         type: ${{ env.BUILD_TYPE }}
 
@@ -85,7 +85,7 @@ jobs:
 
     - name: Initialize git
       if: needs.init.outputs.publish == 'true'
-      uses: openpeerpower/actions/helpers/git-init@master
+      uses: openpeerpower/actions/helpers/git-init@main
       with:
         name: ${{ secrets.GIT_NAME }}
         email: ${{ secrets.GIT_EMAIL }}
@@ -93,7 +93,7 @@ jobs:
 
     - name: Update version file
       if: needs.init.outputs.publish == 'true'
-      uses: openpeerpower/actions/helpers/version-push@master
+      uses: openpeerpower/actions/helpers/version-push@main
       with:
         key: ${{ env.BUILD_NAME }}
         version: ${{ needs.init.outputs.version }}
